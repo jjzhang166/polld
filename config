@@ -1,0 +1,2 @@
+# configuration for polld
+# anything that starts with # is comment, each nonempty line is treated as device name to be monitored
