@@ -1,0 +1,8 @@
+polld
+=====
+
+This is simple daemon which peridically opens files (defined in /etc/polld).
+I use this for scanning partitions in card reader, which does not report card
+insertion/removal. With polld, they appear in 10 seconds after insertion and
+udev will then create appripriate device nodes.
+
