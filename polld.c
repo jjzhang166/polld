@@ -39,12 +39,14 @@ int         i;
                         
 int main(int argc, char **argv) {
     
+    /* First parameter is optionally config file name */
     if (argc == 1) {
         config = defaultconfig;
     } else {
         config = argv[1];
     }
 
+    /* Open configuration */
     file = fopen(config, "r");
     if (file == NULL) {
         err = strerror(errno);
@@ -52,17 +54,19 @@ int main(int argc, char **argv) {
         exit(1);
     }
     
-
+    /* Read config file lines */
     while (getline(&line, &len, file) != -1) {
         /* Ignore comments */
         if (line[0] == '#') continue;
 
         len = strlen(line);
+        
         /* Remove trailing \n */
         if (len > 0 && line[len - 1] == '\n') {
             len[line - 1] = 0;
             len--;
         }
+        
         /* Ignore empty lines */
         if (len == 0) {
             free(line);
@@ -70,6 +74,7 @@ int main(int argc, char **argv) {
             continue;
         }
         
+        /* Okay, we seem to have valid line */
         listlen++;
 
         /* Do we need to reallocate list? */
@@ -79,6 +84,7 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "polld: not enough memory\n");
                 exit(2);
             }
+            alloclen = listlen + 4;
         }
         
         /* Add to list */
@@ -89,15 +95,20 @@ int main(int argc, char **argv) {
         len = 0;
     }
 
+    /* Close config file */
     fclose(file);
+
+    /* Disconnect terminal.. */
     daemon(0, 0);
 
+    /* Write pid file (be quiet on error) */
     file = fopen("/var/run/polld.pid", "w");
     if (file != NULL) {
         fprintf(file, "%d\n", getpid());
         fclose(file);
     }
-    
+   
+    /* Main loop */
     while (1) {
         sleep(10);
         for (i = 0; i < listlen; i++) { 

@@ -2,6 +2,37 @@
 # arch-tag: automatic-ChangeLog--michal@cihar.com--2004-main/polld--main--0.1
 #
 
+2004-03-14 19:10:02 GMT	Michal Cihar <michal@cihar.com>	patch-3
+
+    Summary:
+      added comments, fixed infinite loop
+    Revision:
+      polld--main--0.1--patch-3
+
+    - increse alloclen when reallocating (thanks to Deuce <the_deuce@yahoo.com>)
+    - add some comments
+
+    modified files:
+     ChangeLog Makefile polld.c
+
+
+2004-03-08 23:17:40 GMT	Michal Cihar <michal@cihar.com>	patch-2
+
+    Summary:
+      some documentation
+    Revision:
+      polld--main--0.1--patch-2
+
+    some documentation
+    
+
+    new files:
+     .arch-ids/COPYING.id .arch-ids/README.id COPYING README
+
+    modified files:
+     ChangeLog
+
+
 2004-03-08 22:29:45 GMT	Michal Cihar <michal@cihar.com>	patch-1
 
     Summary:
