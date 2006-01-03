@@ -6,3 +6,4 @@ I use this for scanning partitions in card reader, which does not report card
 insertion/removal. With polld, they appear in 10 seconds after insertion and
 udev will then create appripriate device nodes.
 
+Program homepage is at http://www.cihar.com/software/polld

@@ -1,7 +1,7 @@
 /*
  * Polling daemon
  *
- * Copyright (c) 2004 by Michal Cihar <michal@cihar.com>
+ * Copyright (c) 2004-2006 by Michal Čihař <michal@cihar.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -12,11 +12,11 @@
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
  * more details.
  *
- * In addition to GNU GPL this code may be used also in non GPL programs but
- * if and only if programmer/distributor of that code receives written
- * permission from author of this code.
- *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
+
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
