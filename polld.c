@@ -1,12 +1,11 @@
 /*
  * Polling daemon
- * 
+ *
  * Copyright (c) 2004 by Michal Cihar <michal@cihar.com>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
- * Free Software Foundation; either version 2 of the License, or (at your
- * option) any later version.
+ * Free Software Foundation; either version 2.
  *
  * This code is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
@@ -36,9 +35,9 @@ FILE        *file;
 char        *line = NULL;
 size_t      len = 0;
 int         i;
-                        
+
 int main(int argc, char **argv) {
-    
+
     /* First parameter is optionally config file name */
     if (argc == 1) {
         config = defaultconfig;
@@ -53,32 +52,32 @@ int main(int argc, char **argv) {
         fprintf(stderr, "polld: failed to open configuration %s (%s)\n", config, err);
         exit(1);
     }
-    
+
     /* Read config file lines */
     while (getline(&line, &len, file) != -1) {
         /* Ignore comments */
         if (line[0] == '#') continue;
 
         len = strlen(line);
-        
+
         /* Remove trailing \n */
         if (len > 0 && line[len - 1] == '\n') {
             len[line - 1] = 0;
             len--;
         }
-        
+
         /* Ignore empty lines */
         if (len == 0) {
             free(line);
             line = NULL;
             continue;
         }
-        
+
         /* Okay, we seem to have valid line */
         listlen++;
 
         /* Do we need to reallocate list? */
-        if (listlen > alloclen) { 
+        if (listlen > alloclen) {
             filelist = (char **)realloc(filelist, (listlen + 4 ) * sizeof(char *));
             if (filelist == NULL) {
                 fprintf(stderr, "polld: not enough memory\n");
@@ -86,7 +85,7 @@ int main(int argc, char **argv) {
             }
             alloclen = listlen + 4;
         }
-        
+
         /* Add to list */
         filelist[listlen - 1] = line;
 
@@ -107,11 +106,11 @@ int main(int argc, char **argv) {
         fprintf(file, "%d\n", getpid());
         fclose(file);
     }
-   
+
     /* Main loop */
     while (1) {
         sleep(10);
-        for (i = 0; i < listlen; i++) { 
+        for (i = 0; i < listlen; i++) {
             file = fopen(filelist[i], "r");
             if (file != NULL) fclose(file);
         }

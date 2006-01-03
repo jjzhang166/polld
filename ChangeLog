@@ -2,6 +2,58 @@
 # arch-tag: automatic-ChangeLog--michal@cihar.com--2004-main/polld--main--0.1
 #
 
+2004-10-03 13:16:05 GMT	Michal Cihar <michal@cihar.com>	patch-5
+
+    Summary:
+      added debian packaging support
+    Revision:
+      polld--main--0.1--patch-5
+
+    - added debian directory and all stuff it needs
+    - license is GPL version 2 only
+    - moved init script to debian directory
+
+    new files:
+     .arch-ids/config.id .arch-ids/polld.1.id config
+     debian/.arch-ids/.arch-inventory.id debian/.arch-ids/=id
+     debian/.arch-ids/changelog.id debian/.arch-ids/compat.id
+     debian/.arch-ids/conffiles.id debian/.arch-ids/control.id
+     debian/.arch-ids/copyright.id debian/.arch-ids/dirs.id
+     debian/.arch-ids/docs.id debian/.arch-ids/rules.id
+     debian/.arch-inventory debian/changelog debian/compat
+     debian/conffiles debian/control debian/copyright debian/dirs
+     debian/docs debian/rules polld.1
+
+    modified files:
+     ChangeLog Makefile polld.c
+
+    renamed files:
+     .arch-ids/initscript.id
+       ==> debian/.arch-ids/polld.init.id
+     initscript
+       ==> debian/polld.init
+
+    new directories:
+     debian debian/.arch-ids
+
+
+2004-10-02 17:11:07 GMT	Michal Cihar <michal@cihar.com>	patch-4
+
+    Summary:
+      included init script
+    Revision:
+      polld--main--0.1--patch-4
+
+    - added init script
+    
+
+    new files:
+     .arch-ids/initscript.id initscript
+
+    modified files:
+     ChangeLog
+
+
 2004-03-14 19:10:02 GMT	Michal Cihar <michal@cihar.com>	patch-3
 
     Summary:
