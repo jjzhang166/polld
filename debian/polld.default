@@ -1,0 +1,12 @@
+# Defaults for polld initscript
+# sourced by /etc/init.d/polld
+# installed at /etc/default/polld by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Additional options that are passed to the Daemon. 
+# eg: "--sleep 6"     sleep interval to six seconds
+# See help for details.
+DAEMON_OPTS=""
