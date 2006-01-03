@@ -1,10 +1,11 @@
 DESTDIR=
 CFLAGS=-O2 -Wall
+CONFIGFILE="\"/etc/polld\""
 
 all: polld
 
 polld: polld.c
-	gcc -o polld $(CFLAGS) polld.c
+	gcc -o polld $(CFLAGS) -DCONFIGFILE=$(CONFIGFILE) polld.c
 
 clean:
 	rm -f polld

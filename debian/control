@@ -3,11 +3,11 @@ Section: admin
 Priority: optional
 Maintainer: Michal Čihař <michal@cihar.com>
 Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Standards-Version: 3.6.2
 
 Package: polld
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: Polling daemon
- This deamon periodically opens devices (files) listed in configuration. Main
+Description: Polling demon
+ This demon periodically opens devices (files) listed in configuration. Main
  reason is to force rescanning of partitions on usb devices while using udev.

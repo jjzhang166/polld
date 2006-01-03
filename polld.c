@@ -25,7 +25,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-char        defaultconfig[] = "/etc/polld";
+char        defaultconfig[] = CONFIGFILE;
 char        *config;
 char        **filelist = NULL;
 char        *err;

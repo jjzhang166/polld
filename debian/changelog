@@ -1,6 +1,6 @@
-polld (0.1-1) unstable; urgency=low
+polld (0.1) unstable; urgency=low
 
-  * Initial Release.
+  * Initial release.
 
- -- Michal Čihař <michal@cihar.com>  Sun,  3 Oct 2004 14:19:44 +0200
+ -- Michal Čihař <michal@cihar.com>  Tue,  3 Jan 2006 19:58:21 +0100
 
