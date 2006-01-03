@@ -48,6 +48,10 @@ char        **filelist = NULL;
 int         listlen = 0;
 int         alloclen = 0;
 
+/* Global flags */
+volatile int    shutdown = 0;
+volatile int    reload = 0;
+
 #define ERRORPREFIX "polld: "
 #define VERSION "0.1"
 
@@ -225,6 +229,19 @@ void do_lock(void) {
 }
 
 
+/* Signal handlers */
+void interrupt(int sign)
+{
+    signal(sign, SIG_IGN);
+    shutdown = 1;
+}
+
+void hup(int sign)
+{
+    reload = 1;
+}
+
+
 int main(int argc, char **argv) {
     int         i;
     FILE        *file;
@@ -247,13 +264,40 @@ int main(int argc, char **argv) {
     /* Real lock */
     do_lock();
 
+    /* Trap signals */
+    signal(SIGINT, interrupt);
+    signal(SIGQUIT, interrupt);
+    signal(SIGTERM, interrupt);
+    signal(SIGHUP, hup);
+
     /* Main loop */
-    while (1) {
+    while (!shutdown) {
         sleep(sleeptime);
+
+        /* Should we reload? */
+        if (reload) {
+            for (i = 0; i < listlen; i++) {
+                free(filelist[i]);
+            }
+
+            free(filelist);
+            filelist = NULL;
+            listlen = 0;
+            alloclen = 0;
+
+            load_config();
+        }
+
+        /* Do the main work */
         for (i = 0; i < listlen; i++) {
             file = fopen(filelist[i], "r");
             if (file != NULL) fclose(file);
         }
+    }
+
+    /* Remove lock file */
+    if (strlen(pid) != 0) {
+        unlink(pid);
     }
 
     exit(0);
