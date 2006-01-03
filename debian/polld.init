@@ -1,39 +1,46 @@
 #! /bin/sh
-#
-# init script for polling daemon
-#
+### BEGIN INIT INFO
+# Provides:          polld
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      S 0 1 6
+# Short-Description: polld initscript
+# Description:       This script starts polling demon.
+### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/bin/polld
 NAME=polld
-DESC="polling daemon"
+DESC="polling demon"
 
 # Gracefully exit if the package has been removed.
 test -x $DAEMON || exit 0
 
-set -e
+# Include polld defaults if available
+if [ -f /etc/default/polld ] ; then
+	. /etc/default/polld
+fi
+
+. /lib/lsb/init-functions
 
 case "$1" in
   start)
-	echo -n "Starting $DESC: $NAME"
+	log_daemon_msg "Starting $DESC" "$NAME"
 	start-stop-daemon --start --quiet --pidfile /var/run/$NAME.pid \
-		--exec $DAEMON -- $DAEMONPARAM
-	echo "."
+		--exec $DAEMON -- $DAEMONPARAM -p /var/run/$NAME.pid
+    log_end_msg $?
 	;;
   stop)
-	echo -n "Stopping $DESC: $NAME "
+    log_daemon_msg "Stopping $DESC" $NAME
 	start-stop-daemon --stop --quiet --pidfile /var/run/$NAME.pid \
 		--exec $DAEMON
-	echo "."
+    log_end_msg $?
 	;;
   restart|force-reload)
-	echo -n "Restarting $DESC: $NAME"
-	start-stop-daemon --stop --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON
-	sleep 1
-	start-stop-daemon --start --quiet --pidfile \
-		/var/run/$NAME.pid --exec $DAEMON
-	echo "."
+    sh $0 stop
+    sleep 1
+    sh $0 start
 	;;
   *)
 	N=/etc/init.d/$NAME
