@@ -53,7 +53,7 @@ volatile int    shutdown = 0;
 volatile int    reload = 0;
 
 #define ERRORPREFIX "polld: "
-#define VERSION "0.1"
+#define VERSION "0.2"
 
 void show_version(void) {
     printf("polld version " VERSION "\n"
