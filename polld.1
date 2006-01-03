@@ -19,12 +19,29 @@
 polld \- program to periodically poll devices
 .SH SYNOPSIS
 .B polld
-.RI [ config ]
+[\fIOPTION\fR]
 .SH DESCRIPTION
 This manual page documents briefly the
 .B polld
 command.
 .PP
 \fBpolld\fP is a program that peridically opens files listed in configuration.
+.PP
+Program accepts following options:
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+shows help
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+shows version information
+.TP
+\fB\-c\fR, \fB\-\-config\fR=\fIfile\fR
+configuration file to use
+.TP
+\fB\-p\fR, \fB\-\-pid\fR=\fIfile\fR
+lock file for storing pid
+.TP
+\fB\-s\fR, \fB\-\-sleep\fR=\fIseconds\fR
+number of seconds to sleep between polling devices
 .SH AUTHOR
 polld and this manual page were written by Michal Cihar <michal@cihar.com>.

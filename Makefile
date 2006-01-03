@@ -1,11 +1,13 @@
 DESTDIR=
 CFLAGS=-O2 -Wall
 CONFIGFILE="\"/etc/polld\""
+PIDFILE="\"/var/run/polld.pid\""
+SLEEPTIME=10
 
 all: polld
 
 polld: polld.c
-	gcc -o polld $(CFLAGS) -DCONFIGFILE=$(CONFIGFILE) polld.c
+	gcc -o polld $(CFLAGS) -DCONFIGFILE=$(CONFIGFILE) -DSLEEPTIME=$(SLEEPTIME) -DPIDFULE=$(PIDFILE) polld.c
 
 clean:
 	rm -f polld
