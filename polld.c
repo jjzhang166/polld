@@ -37,6 +37,9 @@
 #ifndef SLEEPTIME
 #   define SLEEPTIME 10
 #endif
+#ifndef VERSION
+#   define VERSION "unknown"
+#endif
 
 /* Commandline params */
 char        *config = NULL;
@@ -53,7 +56,6 @@ volatile int    shutdown = 0;
 volatile int    reload = 0;
 
 #define ERRORPREFIX "polld: "
-#define VERSION "0.2"
 
 void show_version(void) {
     printf("polld version " VERSION "\n"
