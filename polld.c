@@ -228,12 +228,21 @@ void do_lock(void) {
     }
 }
 
+void bye(void) {
+    /* Remove lock file */
+    if (strlen(pid) != 0) {
+        unlink(pid);
+    }
+
+    exit(0);
+}
 
 /* Signal handlers */
 void interrupt(int sign)
 {
     signal(sign, SIG_IGN);
     shutdown = 1;
+    bye();
 }
 
 void hup(int sign)
@@ -295,10 +304,9 @@ int main(int argc, char **argv) {
         }
     }
 
-    /* Remove lock file */
-    if (strlen(pid) != 0) {
-        unlink(pid);
-    }
+    /* Cleanup */
+    bye();
 
-    exit(0);
+    /* Just to make gcc happy */
+    return 0;
 }
