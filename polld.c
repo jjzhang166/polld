@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <signal.h>
 
 /* These are usually defined by make: */
 #ifndef CONFIGFILE
@@ -65,7 +66,7 @@ void show_help(void) {
             " -h --help             show this help\n"
             " -v --version          show version information\n"
             " -c --config file      configuration file to use\n"
-            " -p --pid file         lock file for storing pid\n"
+            " -p --pid file         lock file for storing pid, empty for no locking\n"
             " -s --sleep seconds    number of seconds to sleep in sleep cycle\n"
             "\n");
     exit(0);
@@ -185,6 +186,44 @@ void load_config() {
     fclose(file);
 }
 
+void check_lock(void) {
+    FILE        *file;
+    int         other;
+
+    if (strlen(pid) == 0) return;
+
+    /* Read existing pid */
+    file = fopen(pid, "r");
+    if (file != NULL) {
+        if (fscanf(file, "%d", &other) == 1) {
+            if (kill(other, 0) == 0) {
+                fprintf(stderr, ERRORPREFIX "Another instance is running, please stop it first!\n");
+                exit(1);
+            }
+        } else {
+            fprintf(stderr, ERRORPREFIX "Can not parse pidfile, ignoring!\n");
+        }
+        fclose(file);
+    }
+}
+
+
+void do_lock(void) {
+    FILE        *file;
+
+    if (strlen(pid) == 0) return;
+
+    /* Write pid file */
+    file = fopen(pid, "w");
+    if (file != NULL) {
+        fprintf(file, "%d\n", getpid());
+        fclose(file);
+    } else {
+        fprintf(stderr, ERRORPREFIX "Can not create pidfile!\n");
+        exit(1);
+    }
+}
+
 
 int main(int argc, char **argv) {
     int         i;
@@ -196,15 +235,17 @@ int main(int argc, char **argv) {
     /* Load configuration */
     load_config();
 
+    /* Check for locking while we have terminal */
+    check_lock();
+
+    /* Fake lock while we have terminal */
+    do_lock();
+
     /* Disconnect terminal.. */
     daemon(0, 0);
 
-    /* Write pid file (be quiet on error) */
-    file = fopen(pid, "w");
-    if (file != NULL) {
-        fprintf(file, "%d\n", getpid());
-        fclose(file);
-    }
+    /* Real lock */
+    do_lock();
 
     /* Main loop */
     while (1) {
