@@ -1,0 +1,37 @@
+.TH POLLD 5 "3 JanSep 2006"
+.SH NAME
+polld - polld(1) configuration file 
+.SH DESCRIPTION
+.I polld
+is a simple file containing filenames to be opened by polld(1).
+The syntax is simply as follows:
+.RS
+.sp
+.nf
+.ne 7
+# comment
+
+filename
+.fi
+.sp
+.RE
+.PP
+Note that blank lines are ignored.  Lines which begin with a # are considered comments and ignored.
+.SH EXAMPLE
+.RS
+.sp
+.nf
+.ne 7
+# configuration for polld
+# anything that starts with # is comment, each nonempty line is treated as device name to be monitored
+
+/dev/hde1
+
+.fi
+.sp
+.RE
+.PP
+.SH SEE ALSO
+.BR polld(1)
+.SH AUTHOR
+polld and this manual page were written by Michal Cihar <michal@cihar.com>.
