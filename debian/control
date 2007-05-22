@@ -12,4 +12,4 @@ Description: Polling demon
  This demon periodically opens devices (files) listed in configuration. Main
  reason is to force rescanning of partitions on usb devices while using udev.
  .
- Website: http://www.cihar.com/software/polld
+  Homepage: http://cihar.com/software/polld/
