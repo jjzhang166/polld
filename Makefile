@@ -6,13 +6,15 @@ CONFIGFILE=/etc/polld
 PIDFILE=/var/run/polld.pid
 SLEEPTIME=10
 VERSION=0.2
+# Whether we're on Linux
+LINUX=1
 
 .PHONY: all clean install dist
 
 all: polld
 
 polld: polld.c
-	$(CC) -o polld $(CFLAGS) -DCONFIGFILE=\"$(CONFIGFILE)\" -DSLEEPTIME=$(SLEEPTIME) -DPIDFILE=\"$(PIDFILE)\" -DVERSION=\"$(VERSION)\" polld.c
+	$(CC) -o polld $(CFLAGS) -DCONFIGFILE=\"$(CONFIGFILE)\" -DSLEEPTIME=$(SLEEPTIME) -DPIDFILE=\"$(PIDFILE)\" -DVERSION=\"$(VERSION)\" -DLINUX=$(LINUX) polld.c
 
 clean:
 	rm -f polld

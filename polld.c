@@ -26,6 +26,13 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#if LINUX
+#include <sys/ioctl.h>
+#include <linux/fs.h>
+#endif
 
 /* These are usually defined by make: */
 #ifndef CONFIGFILE
@@ -40,6 +47,9 @@
 #ifndef VERSION
 #   define VERSION "unknown"
 #endif
+
+/* From linux/fs.h */
+#define BLKRRPART  _IO(0x12,95)    /* re-read partition table */
 
 /* Commandline params */
 char        *config = NULL;
@@ -254,8 +264,8 @@ void hup(int sign)
 
 
 int main(int argc, char **argv) {
-    int         i;
-    FILE        *file;
+    int i;
+	int file;
 
     /* Parse parameters is optionally config file name */
     parse_params(argc, argv);
@@ -301,8 +311,13 @@ int main(int argc, char **argv) {
 
         /* Do the main work */
         for (i = 0; i < listlen; i++) {
-            file = fopen(filelist[i], "r");
-            if (file != NULL) fclose(file);
+            file = open(filelist[i], O_RDONLY);
+            if (file != -1) {
+#if LINUX
+				ioctl(file, BLKRRPART);
+#endif
+				close(file);
+			}
         }
     }
 
