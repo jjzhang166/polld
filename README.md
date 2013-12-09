@@ -7,8 +7,6 @@ insertion/removal. With polld, they appear in 10 seconds after insertion and
 udev will then create appripriate device nodes.
 
 Program homepage is at <http://cihar.com/software/polld>.
-Please report bugs to <http://bugs.cihar.com>.
+Please report bugs to <https://github.com/nijel/polld/issues>.
 
-Subversion is available at:
-svn://svn.cihar.com/polld
-http://viewsvn.cihar.com/polld
+Git is available at GitHub: <https://github.com/nijel/polld>
