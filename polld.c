@@ -259,7 +259,7 @@ void interrupt(int sign)
 
 void hup(int sign)
 {
-    reload = 1;
+    reload = sign;
 }
 
 
