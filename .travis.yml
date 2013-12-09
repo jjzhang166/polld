@@ -4,5 +4,7 @@ compiler:
   - clang
 script:
   - make CFLAGS="-Wall -Wextra -Werror -O2 --coverage"
+  - ./polld --version
+  - ./polld --help
 after_success:
   - ./coveralls-upload
