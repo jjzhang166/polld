@@ -280,7 +280,10 @@ int main(int argc, char **argv) {
     do_lock();
 
     /* Disconnect terminal.. */
-    daemon(0, 0);
+    if (daemon(0, 0) != 0) {
+        fprintf(stderr, ERRORPREFIX "Failed to start daemon: %s\n", strerror(errno));
+        exit(1);
+    }
 
     /* Real lock */
     do_lock();
