@@ -4,7 +4,7 @@ compiler:
   - clang
 sudo: false
 before_install:
-  - sudo pip install cpp-coveralls --use-mirrors
+  - pip install cpp-coveralls --use-mirrors
 script:
   - make CFLAGS="-Wall -Wextra -Werror -O2 --coverage"
   - ./polld --version
