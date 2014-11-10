@@ -2,9 +2,8 @@ language: c
 compiler:
   - gcc
   - clang
-sudo: false
 before_install:
-  - pip install cpp-coveralls --use-mirrors
+  - sudo pip install cpp-coveralls
 script:
   - make CFLAGS="-Wall -Wextra -Werror -O2 --coverage"
   - ./polld --version
